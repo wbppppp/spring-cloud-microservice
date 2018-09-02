@@ -1,0 +1,14 @@
+zuul:
+  #通过配置ignorexxx可以过滤掉这些服务和请求
+  #ignoredServices: '*'             #忽略全部服务,
+  #ignoredServices: xxx,yyy,zzz     #忽略某些服务，用","分隔
+  #ignoredPatterns: /**/admin/**    #忽略带有admin的请求
+  #指定serviceId修改微服务的访问路径
+  routes:
+    microservice-provider-user: /users/** #修改指定的微服务的访问路径
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
+
+

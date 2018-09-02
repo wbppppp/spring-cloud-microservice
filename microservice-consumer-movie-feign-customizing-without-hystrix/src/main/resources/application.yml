@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: microservice-consumer-movie-feign-customizing
+server:
+  port: 8010
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://user:password123@localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
+    instanceId: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+logging:
+  level:
+    com.itmuch.cloud.feign.UserFeignClient: DEBUG
+
+#以下三条配置是解决feign第一次请求超时的问题，是由于hystrix默认超时为1s，而第一次请求时间比较长导致超时
+
+#设置超时时间为5s
+#hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 5000
+
+#禁用hystrix超时
+#hystrix.command.default.execution.timeout.enabled: false
+
+#禁用feign的hystrix机制
+#feign.hystrix.enabled: false

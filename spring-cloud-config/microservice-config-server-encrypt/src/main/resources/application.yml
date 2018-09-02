@@ -1,0 +1,12 @@
+server:
+  port: 8080
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/wbppppp/spring-cloud-config-repo
+#加密字符串，理解为一个加密因子，通过这个字符串给数据加密
+encrypt:
+  key: foo
+

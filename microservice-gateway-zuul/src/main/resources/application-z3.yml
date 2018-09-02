@@ -1,0 +1,9 @@
+zuul:
+  routes:
+  #指定url修改微服务的访问路径
+    abc:   #随便写
+      path: /user-url/** #修改的访问路径
+      url: http://localhost:7900/ #服务访问路径
+
+
+

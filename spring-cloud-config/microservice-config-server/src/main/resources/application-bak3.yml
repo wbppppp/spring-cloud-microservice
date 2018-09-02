@@ -1,0 +1,15 @@
+server:
+  port: 8080
+#路径匹配
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/wbppppp/spring-cloud-config-repo
+          search-paths:
+            - foo   #仓库中的目录
+            - bar   #仓库中的目录
+
+
+

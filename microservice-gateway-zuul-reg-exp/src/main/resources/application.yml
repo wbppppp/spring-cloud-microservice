@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: microservice-gateway-zuul
+server:
+  port: 8040
+eureka:
+  client:
+    service-url:
+      defaultZone: http://user:password123@localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+
+#1.设置路由地址前缀：http://localhost:8040/api/microservice...
+#zuul:
+#  prefix: /api
+
+#2.将服务地址的前缀作为路由地址的前缀（全局）
+#如服务访问地址：http://localhost:7900/simple/1
+#路由地址应为：http://localhost:8040/simple/microservice-provider-user/1
+#zuul:
+#  prefix: /simple    #这里根据服务访问地址（microservice-provider-user）来进行设置,应为该服务访问地址前缀
+#  strip-prefix: false #必须为false，默认是true
+
+#3.将服务地址的前缀作为路由地址的前缀（局部）
+#将microservice-provider-user根目录设置为/user
+#服务访问地址：http://localhost:7900/user/simple/1
+#路由地址不加下面的配置默认为：http://localhost:8040/microservice-provider-user/simple/1
+#添加该配置后为：http://localhost:8040/user/simple/1
+zuul:
+  routes:
+    microservice-provider-user:
+      path: /user/**
+      stripPrefix: false
+
+logging:
+  level:
+    com.netflix: debug
+
+
+

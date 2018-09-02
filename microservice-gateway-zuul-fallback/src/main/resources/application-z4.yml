@@ -1,0 +1,18 @@
+zuul:
+  routes:
+#  application-z3通过url的配置方式会导致HysctixCommand和Ribbon失效，如果必须要通过
+#  url配置，可以通过下面的方式配置
+    abc:
+      path: /user-url/**
+      serviceId: microservice-provider-user
+
+#禁用ribbon中eureka
+ribbon:
+  eureka:
+    enabled: false
+microservice-provider-user: #这里配置serviceId
+  ribbon:
+    listOfServers: http://localhost:7900/,http://localhost:7901/ #user服务的多个实例
+
+
+

@@ -1,0 +1,24 @@
+server:
+  port: 8080
+#模式匹配
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/wbppppp/spring-cloud-config-repo #公共资源
+          repos:
+#          假如simple仓库中只有application.yaml,则访问localhost:8080/simple-dev都会
+#          访问到该资源
+            simple: https://github.com/wbppppp/simple
+            special:
+#            假如special仓库中有special-dev.yaml和application.yaml,
+#               则访问localhost:8080/special-dev.yaml --> special-dev.yaml,
+#               但是如果访问localhost:8080/special-default.yaml则不会访问到special仓库中的
+#               application.yaml，而是会访问到https://github.com/wbppppp/spring-cloud-config-repo
+#               中的application.yaml文件
+#            这是由于使用了special仓库使用了模式匹配，无法匹配他的application.yaml,最后
+#               定位到了公共仓库的资源
+              pattern: special*/dev*,*special*/dev*
+              uri: https://github.com/wbppppp/special
+

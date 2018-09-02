@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: microservice-consumer-movie-ribbon-with-hystrix2
+server:
+  port: 8010
+  context-path: /ribbon
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://user:password123@localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
+    instanceId: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+    home-page-url-path: /ribbon   #修改项目根目录时 也要修改eureka上homePageUrl 默认是/
+
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 5000

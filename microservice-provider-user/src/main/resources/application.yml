@@ -1,0 +1,36 @@
+server:
+  port: 7900
+spring:
+  jpa:
+    generate-ddl: false
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  datasource:
+    platform: h2
+    schema: classpath:schema.sql
+    data: classpath:data.sql
+  application:
+    name: microservice-provider-user
+logging:
+  level:
+    root: INFO
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    com.itmuch: DEBUG
+
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://user:password123@localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 30  #server等待client发送心跳的超时时间，时间段内未收到心跳则剔除该instance默认90s
+    lease-renewal-interval-in-seconds: 10 #client向servere发送心跳的频率，可以用来解决注册慢的问题，默认时间30s。注意该配置一定要小于心跳超时
+    instanceId: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+    metadata-map:
+      zone: ABC #eureka可识别元数据，会影响到客户端行为
+      wbp: BBC  #自定义元数据，eureka不识别，不会影响到客户端行为

@@ -1,0 +1,26 @@
+
+
+#通过这种方式来进行远程属性加载可以将git里所有repo加载进来，但注意访问方式：
+#
+#  比如当前有一个仓库名称为aaa，仓库中的文件有
+#    aaa-dev.yaml,aaa-test.yaml,application.yaml,bbb-dev.yaml
+#
+#  microservice-config-server启动成功后，可以直接成功访问的资源：
+#    localhost:8080/aaa-dev.yaml
+#    localhost:8080/aaa-test.yaml
+#  想访问aaa仓库的application.yaml，需要：localhost:8080/aaa-ddd.yaml
+#  而bbb-dev.yaml资源无法访问到，应该是仓库名和文件名没有对应的关系
+#
+#  综上：
+#    仓库名为aaa时，其中的文件（aaa-xxx.yaml或者就是application.yaml）,否则无法映射到
+server:
+  port: 8080
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/wbppppp/{application}
+
+
+

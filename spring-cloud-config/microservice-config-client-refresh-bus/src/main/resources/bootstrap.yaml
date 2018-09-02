@@ -1,0 +1,25 @@
+#Spring cloud通过创建“bootstrap”上下文来操作，该上下文是main application的父上下文。
+#它负责从外部源加载配置属性，并在本地外部配置文件中解密属性。这两个上下文共享一个环境，
+#该环境是任何Spring应用程序的外部属性的来源。Bootstrap属性的优先级很高，
+#因此默认情况下它们不能被本地配置覆盖。
+#
+#
+#bootstrap上下文使用与main application 上下文不同的约定来定位外部配置，因此不使用application.yml，而是
+#使用bootstrap.yml，将bootstarp和main上下文的外部配置很好地分开
+
+#spring.cloud.config从server远程加载属性，bootstarp优先级高于application，专门用于
+#加载外部配置，因此需要配置在bootstarp.yaml中，否则无法覆盖默认的配置
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8080
+      profile: dev
+      label: master   #当config server后端存储是git的时候，默认为master
+  application:
+    name: foobar
+#消息队列配置，rabbitmq默认登录名密码为guest
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest

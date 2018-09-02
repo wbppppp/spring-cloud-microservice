@@ -1,0 +1,14 @@
+zuul:
+  #通过配置ignorexxx可以过滤掉这些服务和请求
+  #ignoredServices: '*'             #忽略全部服务,
+  #ignoredServices: xxx,yyy,zzz     #忽略某些服务，用","分隔
+  #ignoredPatterns: /**/admin/**    #忽略带有admin的请求
+  #指定serviceId修改微服务的访问路径
+  routes:
+    microservice-provider-user: /users/** #修改指定的微服务的访问路径
+
+#禁用某个过滤器 zuul.过滤器名称.过滤器类型.disabled: true
+#zuul.SendErrorFilter.post.disable: true
+
+
+

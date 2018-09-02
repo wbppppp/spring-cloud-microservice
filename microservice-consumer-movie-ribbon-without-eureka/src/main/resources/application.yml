@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: microservice-consumer-movie-ribbon-without-eureka
+server:
+  port: 8010
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://user:password123@localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
+    instanceId: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+ribbon:
+  eureka:
+   enabled: false
+microservice-provider-user:
+  ribbon:
+    listOfServers: localhost:7900

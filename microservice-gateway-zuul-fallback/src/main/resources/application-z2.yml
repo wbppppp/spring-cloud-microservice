@@ -1,0 +1,9 @@
+zuul:
+  routes:
+  #指定serviceId修改微服务的访问路径
+    abc:   #随便写
+      path: /myusers/** #修改的访问路径
+      serviceId: microservice-provider-user #服务名称
+
+
+
